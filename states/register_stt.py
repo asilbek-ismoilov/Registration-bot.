@@ -7,4 +7,4 @@ class SingUp(StatesGroup):
 
 class Cours(StatesGroup):
     cours = State()
-
+    descripton = State()

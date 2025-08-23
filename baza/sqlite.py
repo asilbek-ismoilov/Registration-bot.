@@ -1,3 +1,4 @@
+import time
 import sqlite3
 
 class Database:
@@ -10,12 +11,10 @@ class Database:
 
     def execute(self, sql: str, parameters: tuple = (), fetchone=False, fetchall=False, commit=False):
         connection = self.connection
-        # connection.set_trace_callback(logger)  # Comment or remove if your SQLite version does not support this
         cursor = connection.cursor()
         data = None
         try:
             cursor.execute(sql, parameters)
-
             if commit:
                 connection.commit()
             if fetchall:
@@ -40,6 +39,15 @@ class Database:
         """
         self.execute(sql, commit=True)
 
+    def create_table_course(self):
+        sql = """
+        CREATE TABLE IF NOT EXISTS Cours(
+        name TEXT,
+        description TEXT
+        );
+        """
+        self.execute(sql, commit=True)
+
     @staticmethod
     def format_args(sql, parameters: dict):
         sql += " AND ".join([
@@ -58,6 +66,25 @@ class Database:
         phone=excluded.phone;
         """
         self.execute(sql, parameters=(telegram_id, full_name, name, surname, phone), commit=True)
+
+    def add_course(self, name: str, description: str):
+        sql = """
+        INSERT INTO Cours(name, description) VALUES(?, ?)
+        """
+        self.execute(sql, parameters=(name, description), commit=True)
+
+    def all_course_name(self):
+        sql = """SELECT name FROM Cours;"""
+        return self.execute(sql, fetchall=True)
+
+    def get_courses(self, name):
+        sql = """SELECT * FROM Cours WHERE name = ?"""
+        return self.execute(sql, parameters=(name,), fetchall=True)
+    
+    def delete_courses(self, name):
+        time.sleep(0.1) 
+        sql = """DELETE FROM Cours WHERE name = ?"""
+        return self.execute(sql, parameters=(name,), commit=True)
 
     def select_all_users(self):
         sql = "SELECT * FROM Users;"
@@ -87,9 +114,6 @@ class Database:
     def count_users(self):
         return self.execute("SELECT COUNT(*) FROM Users;", fetchone=True)
 
-    def delete_users(self):
-        self.execute("DELETE FROM Users WHERE TRUE;", commit=True)
-    
     def all_users_id(self):
         return self.execute("SELECT telegram_id FROM Users;", fetchall=True)
 

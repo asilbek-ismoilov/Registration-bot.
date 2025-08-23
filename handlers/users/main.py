@@ -1,19 +1,21 @@
-from loader import dp, bot, ADMINS, db
-from aiogram import F
-from keyboard_buttons.default.menu import menu_button, cours
-from aiogram.types import Message,CallbackQuery, ContentType
-from aiogram.fsm.context import FSMContext
-from keyboard_buttons.default.menu import menu_button
-from states.help_stt import AdminStates, AdminStates, create_inline_keyboard
-from aiogram import types
 import logging
+from aiogram import F
+from aiogram import types
+from loader import dp, bot, ADMINS, db
 from aiogram.fsm.context import FSMContext
+from keyboard_buttons.default import admin_keyboard
+from keyboard_buttons.default.menu import menu_button
+from aiogram.types import Message,CallbackQuery, ContentType
+from states.help_stt import AdminStates, create_inline_keyboard
 
 @dp.message(F.text == "Kurslar 📚")
 async def cours_info(message: Message, state: FSMContext): 
-    await message.answer("Menu dan birini tanlang", reply_markup=cours)
+    await message.answer(
+        text="Menu dan birini tanlang", 
+        reply_markup=admin_keyboard.get_course_keyboard()
+    )
     await state.clear()
-
+    
 
 @dp.message(F.text == "Manzilimiz 📍")
 async def location(message: Message, state: FSMContext): 
@@ -56,7 +58,7 @@ Sizni o'zimizning o'quv dasturlarimiz bilan tanishtirishni va professional rivoj
     await state.clear()
 
 
-@dp.message(F.text == "🔙Orqaga")
+@dp.message(F.text == "Ortga 🔙")
 async def exit(message: Message):
     await message.answer("Menu", reply_markup=menu_button)
 

@@ -5,10 +5,6 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 class Help(StatesGroup):
     help = State()
 
-class AdminStates(StatesGroup):
-    waiting_for_admin_message = State()
-    waiting_for_reply_message = State()
-
 
 # Define admin states
 class AdminStates(StatesGroup):
@@ -25,3 +21,10 @@ def create_inline_keyboard(user_id):
 
 
     return keyboard_builder.as_markup()
+
+class Course(StatesGroup):
+    name = State()
+    description = State()
+
+class Show(StatesGroup):
+    name = State()

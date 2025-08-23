@@ -1,5 +1,5 @@
-from aiogram.filters import BaseFilter
 from aiogram.types import Message
+from aiogram.filters import BaseFilter
 
 
 class IsBotAdminFilter(BaseFilter):

@@ -8,6 +8,18 @@ reg_courses = InlineKeyboardMarkup(
 
 confirmation = InlineKeyboardMarkup(
     inline_keyboard=[
-        [InlineKeyboardButton(text= "Bekor qilish ❌", callback_data="cancel"), InlineKeyboardButton(text= "O'zgartirish 📝", callback_data="change"), InlineKeyboardButton(text= "Tasdiqlash ✅", callback_data="right")]
+        [InlineKeyboardButton(text= "Bekor qilish ❌", callback_data="cancel"), InlineKeyboardButton(text= "Tasdiqlash ✅", callback_data="right")]
+    ]
+)
+
+add_course = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="Qo'shish ✅", callback_data="add course"),],
+    ]
+)
+
+del_course = InlineKeyboardMarkup(
+    inline_keyboard=[       
+        [InlineKeyboardButton(text="O'chirish 🗑", callback_data="delete course")]
     ]
 )

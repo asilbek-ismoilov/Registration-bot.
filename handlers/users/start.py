@@ -1,8 +1,8 @@
-from aiogram.types import Message
 from loader import dp, db
+from aiogram.types import Message
 from aiogram.filters import CommandStart
-from keyboard_buttons.default.menu import menu_button
 from aiogram.fsm.context import FSMContext
+from keyboard_buttons.default.menu import menu_button
 
 @dp.message(CommandStart())
 async def start_command(message: Message,state:FSMContext):
